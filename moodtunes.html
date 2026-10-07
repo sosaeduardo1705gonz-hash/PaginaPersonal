@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoodTunes – Tu música según tu alma</title>
+<link rel="stylesheet" href="moodtunes.css">
+
+</head>
+<body>
+
+<div id="loading-overlay">
+  <div class="vinyl"></div>
+  <p>Analizando tu estado de ánimo...</p>
+</div>
+
+<nav>
+  <div class="logo">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="16" fill="#1DB954"/>
+      <path d="M22.5 21.5c-3.5-2.1-8.1-2.3-11.2-1.3-.5.1-.9-.1-1-.6-.1-.5.1-.9.6-1 3.5-1.1 9.2-.9 12.8 1.5.4.2.5.8.2 1.2-.2.3-.7.4-1.1.2zm1.2-3c-4-2.3-9.9-3-14.5-1.7-.6.2-1.1-.1-1.3-.7-.2-.6.1-1.1.7-1.3 5.2-1.6 11.6-.8 16 1.9.5.3.7 1 .4 1.5-.3.5-1 .6-1.3.3zm.1-3.1c-4.7-2.8-12.5-3-17-.7-.7.2-1.4-.1-1.6-.8-.2-.7.1-1.4.8-1.6 5.1-1.6 13.6-1.3 18.9.8.6.2.9 1 .6 1.6-.3.7-1.1.9-1.7.7z" fill="white"/>
+    </svg>
+    MoodTunes
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">Inicio</a></li>
+    <li><a href="#survey-anchor">Encuesta</a></li>
+    <li><a href="#">Tendencias</a></li>
+    <li><a href="#features-section">Acerca de</a></li>
+  </ul>
+  <button class="btn-login" onclick="scrollToSurvey()">Comenzar</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">✦ Impulsado por IA · Claude API</div>
+  <h1>Tu música,<br>tu <span>estado de alma</span></h1>
+  <p>Cuéntanos cómo te sientes hoy y te daremos las canciones perfectas para este momento exacto de tu vida.</p>
+  <div class="hero-cta">
+    <button class="btn-primary" onclick="scrollToSurvey()">Descubrir mi playlist →</button>
+    <button class="btn-secondary" onclick="scrollToFeatures()">¿Cómo funciona?</button>
+  </div>
+</section>
+
+<!-- MOOD PREVIEW -->
+<div class="floating-cards">
+  <div class="mood-preview-card" onclick="scrollToSurvey()"><span class="mood-emoji">😊</span><div><div class="mood-label">Feliz</div><div class="mood-sub">Pop &amp; Dance</div></div></div>
+  <div class="mood-preview-card" onclick="scrollToSurvey()"><span class="mood-emoji">😔</span><div><div class="mood-label">Melancólico</div><div class="mood-sub">Indie &amp; Lo-fi</div></div></div>
+  <div class="mood-preview-card" onclick="scrollToSurvey()"><span class="mood-emoji">💪</span><div><div class="mood-label">Motivado</div><div class="mood-sub">Rock &amp; Rap</div></div></div>
+  <div class="mood-preview-card" onclick="scrollToSurvey()"><span class="mood-emoji">😌</span><div><div class="mood-label">Relajado</div><div class="mood-sub">Ambient &amp; Jazz</div></div></div>
+  <div class="mood-preview-card" onclick="scrollToSurvey()"><span class="mood-emoji">💕</span><div><div class="mood-label">Enamorado</div><div class="mood-sub">R&amp;B &amp; Soul</div></div></div>
+</div>
+
+<!-- SURVEY -->
+<div id="survey-anchor"></div>
+<section class="section">
+  <div class="section-label">✦ Encuesta de estado de ánimo</div>
+  <h2>¿Cómo te sientes hoy?</h2>
+  <p>4 preguntas rápidas para personalizar tu experiencia musical al instante.</p>
+
+  <div class="steps" id="step-indicator">
+    <div class="step active" id="step-1"><div class="step-num">1</div><span>Emoción</span></div>
+    <div class="step-line" id="line-1"></div>
+    <div class="step" id="step-2"><div class="step-num">2</div><span>Energía</span></div>
+    <div class="step-line" id="line-2"></div>
+    <div class="step" id="step-3"><div class="step-num">3</div><span>Contexto</span></div>
+    <div class="step-line" id="line-3"></div>
+    <div class="step" id="step-4"><div class="step-num">4</div><span>Género</span></div>
+  </div>
+
+  <div class="survey-card" id="survey-card">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+    <!-- Q1 -->
+    <div class="question-screen active" id="q1">
+      <div class="question-num">Pregunta 1 de 4</div>
+      <div class="question-text">¿Cuál emoción describe mejor cómo te sientes ahora mismo?</div>
+      <div class="options-grid">
+        <button class="option-btn" onclick="selectOption(this,'q1','feliz')"><span class="option-icon">😊</span><div><div class="option-text">Feliz</div><div class="option-desc">Con ganas de todo</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q1','melancolico')"><span class="option-icon">😔</span><div><div class="option-text">Melancólico</div><div class="option-desc">Pensativo, nostálgico</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q1','estresado')"><span class="option-icon">😰</span><div><div class="option-text">Estresado</div><div class="option-desc">Bajo presión</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q1','relajado')"><span class="option-icon">😌</span><div><div class="option-text">Relajado</div><div class="option-desc">Tranquilo, en paz</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q1','motivado')"><span class="option-icon">💪</span><div><div class="option-text">Motivado</div><div class="option-desc">Listo para conquistar</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q1','enamorado')"><span class="option-icon">💕</span><div><div class="option-text">Enamorado</div><div class="option-desc">El corazón late fuerte</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q1','frustrado')"><span class="option-icon">😤</span><div><div class="option-text">Frustrado</div><div class="option-desc">Necesito desahogarme</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q1','ansioso')"><span class="option-icon">😬</span><div><div class="option-text">Ansioso</div><div class="option-desc">Mente acelerada</div></div></button>
+      </div>
+      <div class="nav-btns">
+        <span></span>
+        <button class="btn-next" id="btn-next-1" disabled onclick="nextQuestion(2)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-screen" id="q2">
+      <div class="question-num">Pregunta 2 de 4</div>
+      <div class="question-text">¿Cuánta energía tienes en este momento?</div>
+      <div class="energy-slider-wrap">
+        <div class="slider-label"><span>😴 Sin energía</span><span>⚡ Súper activo</span></div>
+        <input type="range" min="1" max="10" value="5" id="energy-slider" oninput="updateEnergy()">
+        <div class="slider-value" id="energy-value">5 / 10</div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="nextQuestion(1)">← Atrás</button>
+        <button class="btn-next" onclick="nextQuestion(3)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-screen" id="q3">
+      <div class="question-num">Pregunta 3 de 4</div>
+      <div class="question-text">¿Qué estás haciendo ahora o qué harás pronto?</div>
+      <div class="options-grid">
+        <button class="option-btn" onclick="selectOption(this,'q3','trabajando')"><span class="option-icon">💻</span><div><div class="option-text">Trabajando</div><div class="option-desc">Enfocado en tareas</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q3','ejercicio')"><span class="option-icon">🏃</span><div><div class="option-text">Ejercicio</div><div class="option-desc">Moviendo el cuerpo</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q3','relajandome')"><span class="option-icon">🛋️</span><div><div class="option-text">Relajándome</div><div class="option-desc">Tiempo libre</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q3','saliendo')"><span class="option-icon">🚗</span><div><div class="option-text">Saliendo</div><div class="option-desc">De viaje o paseo</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q3','estudiando')"><span class="option-icon">📚</span><div><div class="option-text">Estudiando</div><div class="option-desc">Concentrado</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q3','socializando')"><span class="option-icon">🎉</span><div><div class="option-text">Socializando</div><div class="option-desc">Con amigos o familia</div></div></button>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="nextQuestion(2)">← Atrás</button>
+        <button class="btn-next" id="btn-next-3" disabled onclick="nextQuestion(4)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-screen" id="q4">
+      <div class="question-num">Pregunta 4 de 4</div>
+      <div class="question-text">¿Qué tipo de música prefieres en general?</div>
+      <div class="options-grid">
+        <button class="option-btn" onclick="selectOption(this,'q4','pop')"><span class="option-icon">🎤</span><div><div class="option-text">Pop</div><div class="option-desc">Hits del momento</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q4','rock')"><span class="option-icon">🎸</span><div><div class="option-text">Rock</div><div class="option-desc">Guitarras y adrenalina</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q4','urbano')"><span class="option-icon">🎧</span><div><div class="option-text">Urbano</div><div class="option-desc">Reggaeton, trap, rap</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q4','electronica')"><span class="option-icon">🎛️</span><div><div class="option-text">Electrónica</div><div class="option-desc">EDM, house, techno</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q4','indie')"><span class="option-icon">🌙</span><div><div class="option-text">Indie / Lo-fi</div><div class="option-desc">Alternativo y relajado</div></div></button>
+        <button class="option-btn" onclick="selectOption(this,'q4','clasica')"><span class="option-icon">🎻</span><div><div class="option-text">Clásica / Jazz</div><div class="option-desc">Sofisticado</div></div></button>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="nextQuestion(3)">← Atrás</button>
+        <button class="btn-next" id="btn-next-4" disabled onclick="submitSurvey()">Ver mi playlist ✨</button>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="result-screen">
+      <div class="result-header">
+        <div class="result-mood-badge" id="result-mood-badge">✦ Emoción detectada</div>
+        <div class="result-title" id="result-title">Tu playlist está lista</div>
+        <p class="result-desc" id="result-desc"></p>
+      </div>
+      <div class="ai-response-box" id="ai-box">
+        <div class="ai-badge">IA · Claude</div>
+        <div id="ai-text"><div class="loading-dots"><span></span><span></span><span></span></div>&nbsp; Analizando tu estado de ánimo...</div>
+      </div>
+      <div class="song-cards" id="song-list"></div>
+      <button class="btn-primary" style="width:100%;margin-top:4px;" onclick="openSpotify()">Abrir playlist en Spotify →</button>
+      <button class="btn-restart" onclick="restartSurvey()">↺ Hacer la encuesta de nuevo</button>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">82M+</div><div class="stat-label">Canciones disponibles</div></div>
+  <div class="stat"><div class="stat-num">8</div><div class="stat-label">Emociones detectables</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Personalizado para ti</div></div>
+  <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Playlists posibles</div></div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features-section">
+  <div class="features-inner">
+    <div class="features-header">
+      <h2>¿Por qué MoodTunes?</h2>
+      <p>La música correcta en el momento correcto lo cambia todo.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🧠</div><h3>Análisis emocional con IA</h3><p>Nuestro motor analiza tus respuestas con inteligencia artificial para entender tu estado de ánimo con precisión y profundidad.</p></div>
+      <div class="feature-card"><div class="feature-icon">🎯</div><h3>Recomendación personalizada</h3><p>No es una lista genérica. Cada playlist se construye en tiempo real considerando tu energía, contexto y preferencias.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔗</div><h3>Integración con Spotify</h3><p>Todas las canciones abren directamente en Spotify. Sin fricciones, sin salir de tu app favorita de música.</p></div>
+      <div class="feature-card"><div class="feature-icon">⚡</div><h3>Rápido y sin registro</h3><p>4 preguntas. 30 segundos. Tu playlist lista. No necesitas crear ninguna cuenta para comenzar a disfrutar.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="font-size:18px;">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px;">
+            <circle cx="16" cy="16" r="16" fill="#1DB954"/>
+            <path d="M22.5 21.5c-3.5-2.1-8.1-2.3-11.2-1.3-.5.1-.9-.1-1-.6-.1-.5.1-.9.6-1 3.5-1.1 9.2-.9 12.8 1.5.4.2.5.8.2 1.2-.2.3-.7.4-1.1.2zm1.2-3c-4-2.3-9.9-3-14.5-1.7-.6.2-1.1-.1-1.3-.7-.2-.6.1-1.1.7-1.3 5.2-1.6 11.6-.8 16 1.9.5.3.7 1 .4 1.5-.3.5-1 .6-1.3.3zm.1-3.1c-4.7-2.8-12.5-3-17-.7-.7.2-1.4-.1-1.6-.8-.2-.7.1-1.4.8-1.6 5.1-1.6 13.6-1.3 18.9.8.6.2.9 1 .6 1.6-.3.7-1.1.9-1.7.7z" fill="white"/>
+          </svg>
+          MoodTunes
+        </div>
+        <p>Descubre la música perfecta para cada momento de tu vida. Impulsado por inteligencia artificial y Spotify.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Producto</h4>
+        <ul>
+          <li><a href="#">Encuesta</a></li>
+          <li><a href="#">Tendencias</a></li>
+          <li><a href="#">Cómo funciona</a></li>
+          <li><a href="#">API</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#">Acerca de</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Prensa</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="#">Términos</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 MoodTunes. Hecho con ♥ y buena música. No afiliado con Spotify AB.</p>
+      <div class="footer-socials">
+        <a href="#">Instagram</a>
+        <a href="#">Twitter / X</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="moodtunes.js"></script>
+
+</body>
+</html>
